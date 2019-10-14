@@ -34,8 +34,6 @@ class ViewController: UIViewController {
         return view
     }()
     
-    
-    
     lazy var linearButton: UIButton = {
         let button = UIButton()
         button.setTitle("Linear", for: .normal)
@@ -259,7 +257,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         addSubviews()
         setConstraints()
-        
+        view.backgroundColor = #colorLiteral(red: 0.9778421521, green: 1, blue: 0.8806159496, alpha: 1)
     }
 }
 
