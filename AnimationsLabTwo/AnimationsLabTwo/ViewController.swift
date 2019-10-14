@@ -37,7 +37,8 @@ class ViewController: UIViewController {
     lazy var linearButton: UIButton = {
         let button = UIButton()
         button.setTitle("Linear", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.purple, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.tag = 0
         button.showsTouchWhenHighlighted = true
         button.addTarget(self, action: #selector(hideButtonPressed(sender:)), for: .touchUpInside)
@@ -47,7 +48,8 @@ class ViewController: UIViewController {
     lazy var easeInButton: UIButton = {
         let button = UIButton()
         button.setTitle("EaseIn", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.purple, for: .normal)
+         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.tag = 1
         button.showsTouchWhenHighlighted = true
         button.addTarget(self, action: #selector(hideButtonPressed(sender:)), for: .touchUpInside)
@@ -57,7 +59,8 @@ class ViewController: UIViewController {
     lazy var easeOutButton: UIButton = {
         let button = UIButton()
         button.setTitle("EaseOut", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.purple, for: .normal)
+         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.tag = 2
         button.showsTouchWhenHighlighted = true
         button.addTarget(self, action: #selector(hideButtonPressed(sender:)), for: .touchUpInside)
@@ -68,8 +71,8 @@ class ViewController: UIViewController {
     lazy var easeInEaseOutButton: UIButton = {
         let button = UIButton()
         button.setTitle("EaseInOut", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.setTitleColor(.purple, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.tag = 3
         button.showsTouchWhenHighlighted = true
         button.addTarget(self, action: #selector(hideButtonPressed(sender:)), for: .touchUpInside)
@@ -88,7 +91,7 @@ class ViewController: UIViewController {
     lazy var resetButton: UIButton = {
         let button = UIButton()
         button.setTitle("Reset", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.orange, for: .normal)
         button.showsTouchWhenHighlighted = true
         button.addTarget(self, action: #selector(resetButtonPressed(sender:)), for: .touchUpInside)
         return button
@@ -97,11 +100,20 @@ class ViewController: UIViewController {
     lazy var animateButton: UIButton = {
         let button = UIButton()
         button.setTitle("Animate", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.orange, for: .normal)
         button.showsTouchWhenHighlighted = true
         button.addTarget(self, action: #selector(animateButtonPressed(sender:)), for: .touchUpInside)
         return button
     }()
+    
+    lazy var titleLabel: UILabel = {
+           let label = UILabel()
+           label.text = "Poop Animation Speeds"
+           label.textColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+           label.textAlignment = .center
+           return label
+       }()
     
     //MARK: -- objc/button functions
     
@@ -188,7 +200,16 @@ class ViewController: UIViewController {
         setConstraintsForEaseInEaseOutPoop()
         setConstraintsForResetButton()
         setConstraintsForAnimateButton()
+        setTitleLabelConstraints()
     }
+    
+    private func setTitleLabelConstraints(){
+          NSLayoutConstraint.activate([
+              titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+              titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+          ])
+      }
+      
     
     private func setConstraintsForLinearPoop(){
         NSLayoutConstraint.activate([
@@ -250,9 +271,9 @@ class ViewController: UIViewController {
     }
     
     private func addSubviews(){
-        [linearPoop, easeInPoop, easeOutPoop, easeInEaseOutPoop, buttonStackView, resetButton, animateButton].forEach{$0.translatesAutoresizingMaskIntoConstraints = false }
+        [linearPoop, easeInPoop, easeOutPoop, easeInEaseOutPoop, buttonStackView, resetButton, animateButton, titleLabel].forEach{$0.translatesAutoresizingMaskIntoConstraints = false }
         
-        let UIElements = [linearPoop, easeInPoop, easeOutPoop, easeInEaseOutPoop,buttonStackView, resetButton, animateButton]
+        let UIElements = [linearPoop, easeInPoop, easeOutPoop, easeInEaseOutPoop,buttonStackView, resetButton, animateButton, titleLabel]
         for UIElement in UIElements {
             self.view.addSubview(UIElement)
         }
