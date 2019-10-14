@@ -9,26 +9,26 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    lazy var linearBall: UIImageView = {
+    //MARK: -- Properties
+    lazy var linearPoop: UIImageView = {
         let view = UIImageView()
         view.image = #imageLiteral(resourceName: "poop")
         return view
     }()
     
-    lazy var easeInBall: UIImageView = {
+    lazy var easeInPoop: UIImageView = {
         let view = UIImageView()
         view.image = #imageLiteral(resourceName: "poop")
         return view
     }()
     
-    lazy var easeOutBall: UIImageView = {
+    lazy var easeOutPoop: UIImageView = {
         let view = UIImageView()
         view.image = #imageLiteral(resourceName: "poop")
         return view
     }()
     
-    lazy var easeInEaseOutBall: UIImageView = {
+    lazy var easeInEaseOutPoop: UIImageView = {
         let view = UIImageView()
         view.image = #imageLiteral(resourceName: "poop")
         return view
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
     
     lazy var easeInEaseOutButton: UIButton = {
         let button = UIButton()
-        button.setTitle("easeInEaseOut", for: .normal)
+        button.setTitle("EaseInOut", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.tag = 3
@@ -103,126 +103,129 @@ class ViewController: UIViewController {
         return button
     }()
     
+    //MARK: -- objc/button functions
+    
     @objc func hideButtonPressed(sender: UIButton){
         switch sender.tag {
         case 0:
-            if linearBall.isHidden == true {
-                linearBall.isHidden = false
+            if linearPoop.isHidden == true {
+                linearPoop.isHidden = false
             } else {
-                linearBall.isHidden = true
+                linearPoop.isHidden = true
             }
         case 1:
-            if easeInBall.isHidden == true {
-                easeInBall.isHidden = false
+            if easeInPoop.isHidden == true {
+                easeInPoop.isHidden = false
             } else {
-                easeInBall.isHidden = true
+                easeInPoop.isHidden = true
             }
             
         case 2:
-            if easeOutBall.isHidden == true {
-                easeOutBall.isHidden = false
+            if easeOutPoop.isHidden == true {
+                easeOutPoop.isHidden = false
             } else {
-                easeOutBall.isHidden = true
+                easeOutPoop.isHidden = true
             }
             
         case 3:
-            if easeInEaseOutBall.isHidden == true {
-                easeInEaseOutBall.isHidden = false
+            if easeInEaseOutPoop.isHidden == true {
+                easeInEaseOutPoop.isHidden = false
             } else {
-                easeInEaseOutBall.isHidden = true
+                easeInEaseOutPoop.isHidden = true
             }
         default: ()
         }
     }
     
     @objc func animateButtonPressed(sender: UIButton) {
-        animateLinearBall()
-        animateEaseInBall()
-        animateEaseOutBall()
-        animateEaseInEaseOutBall()
+        animateLinearPoop()
+        animateEaseInPoop()
+        animateEaseOutPoop()
+        animateEaseInEaseOutPoop()
     }
     
     @objc func resetButtonPressed(sender: UIButton) {
-        linearBall.transform = CGAffineTransform.identity
-        easeInBall.transform = CGAffineTransform.identity
-        easeOutBall.transform = CGAffineTransform.identity
-        easeInEaseOutBall.transform = CGAffineTransform.identity
-    
-        
-//        easeInEaseOutBall.center = CGPoint(x: easeInEaseOutBall.center.x, y: easeInEaseOutBall.center.y - 600)
-        //CGAffineTransform doesn't change the actual center? Somehow, when the ball moves, it prints out the same center as when it started. Yet, reverting the change made via subtraction seems to work.
+        linearPoop.transform = CGAffineTransform.identity
+        easeInPoop.transform = CGAffineTransform.identity
+        easeOutPoop.transform = CGAffineTransform.identity
+        easeInEaseOutPoop.transform = CGAffineTransform.identity
     }
     
+    //        easeInEaseOutBall.center = CGPoint(x: easeInEaseOutBall.center.x, y: easeInEaseOutBall.center.y - 600)
+    //CGAffineTransform doesn't change the actual center? Somehow, when the ball moves, it prints out the same center as when it started. Yet, reverting the change made via subtraction seems to work.
     
-    private func animateLinearBall(){
+    
+    
+    //MARK: -- Animation Functions
+    private func animateLinearPoop(){
         UIView.animate(withDuration: 3.0, delay: 0, options: .curveLinear, animations: {
-            self.linearBall.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
+            self.linearPoop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
     
     
-    private func animateEaseInBall(){
-        print(easeInBall.center)
+    private func animateEaseInPoop(){
+        print(easeInPoop.center)
         UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseIn, animations: {
-            self.easeInBall.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: {(action) in
-                print(self.easeInBall.center)
+            self.easeInPoop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: {(action) in
+                print(self.easeInPoop.center)
         })
         
     }
     
-    private func animateEaseOutBall(){
+    private func animateEaseOutPoop(){
         UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseOut, animations: {
-            self.easeOutBall.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
+            self.easeOutPoop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
     
-    private func animateEaseInEaseOutBall(){
+    private func animateEaseInEaseOutPoop(){
         UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseInOut, animations: {
-            self.easeInEaseOutBall.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
+            self.easeInEaseOutPoop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
     
+    //MARK: -- Constraint Functions
     private func setConstraints(){
         setConstraintsForButtonStack()
-        setConstraintsForLinearBall()
-        setConstraintsForEaseInBall()
-        setConstraintsForEaseOutBall()
-        setConstraintsForEaseInEaseOutBall()
+        setConstraintsForLinearPoop()
+        setConstraintsForEaseInPoop()
+        setConstraintsForEaseOutPoop()
+        setConstraintsForEaseInEaseOutPoop()
         setConstraintsForResetButton()
         setConstraintsForAnimateButton()
     }
     
-    private func setConstraintsForLinearBall(){
+    private func setConstraintsForLinearPoop(){
         NSLayoutConstraint.activate([
-            linearBall.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            linearBall.centerXAnchor.constraint(equalTo: linearButton.centerXAnchor),
-            linearBall.widthAnchor.constraint(equalToConstant: 70),
-            linearBall.heightAnchor.constraint(equalToConstant: 70),
+            linearPoop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
+            linearPoop.centerXAnchor.constraint(equalTo: linearButton.centerXAnchor),
+            linearPoop.widthAnchor.constraint(equalToConstant: 70),
+            linearPoop.heightAnchor.constraint(equalToConstant: 70),
         ])
     }
     
-    private func setConstraintsForEaseInBall(){
+    private func setConstraintsForEaseInPoop(){
         NSLayoutConstraint.activate([
-            easeInBall.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            easeInBall.centerXAnchor.constraint(equalTo: easeInButton.centerXAnchor),
-            easeInBall.widthAnchor.constraint(equalToConstant: 70),
-            easeInBall.heightAnchor.constraint(equalToConstant: 70),
-            
-        ])
-        
-    }
-    
-    private func setConstraintsForEaseOutBall(){
-        NSLayoutConstraint.activate([
-            easeOutBall.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            easeOutBall.centerXAnchor.constraint(equalTo: easeOutButton.centerXAnchor),
-            easeOutBall.widthAnchor.constraint(equalToConstant: 70),
-            easeOutBall.heightAnchor.constraint(equalToConstant: 70)
+            easeInPoop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
+            easeInPoop.centerXAnchor.constraint(equalTo: easeInButton.centerXAnchor),
+            easeInPoop.widthAnchor.constraint(equalToConstant: 70),
+            easeInPoop.heightAnchor.constraint(equalToConstant: 70),
         ])
     }
     
-    private func setConstraintsForEaseInEaseOutBall(){
+    private func setConstraintsForEaseOutPoop(){
         NSLayoutConstraint.activate([
-            easeInEaseOutBall.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            easeInEaseOutBall.centerXAnchor.constraint(equalTo: easeInEaseOutButton.centerXAnchor),
-            easeInEaseOutBall.widthAnchor.constraint(equalToConstant: 70),
-            easeInEaseOutBall.heightAnchor.constraint(equalToConstant: 70)
+            easeOutPoop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
+            easeOutPoop.centerXAnchor.constraint(equalTo: easeOutButton.centerXAnchor),
+            easeOutPoop.widthAnchor.constraint(equalToConstant: 70),
+            easeOutPoop.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
+    
+    private func setConstraintsForEaseInEaseOutPoop(){
+        NSLayoutConstraint.activate([
+            easeInEaseOutPoop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
+            easeInEaseOutPoop.centerXAnchor.constraint(equalTo: easeInEaseOutButton.centerXAnchor),
+            easeInEaseOutPoop.widthAnchor.constraint(equalToConstant: 70),
+            easeInEaseOutPoop.heightAnchor.constraint(equalToConstant: 70)
+        ])
+    }
+    
     private func setConstraintsForButtonStack(){
         NSLayoutConstraint.activate([
             buttonStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
@@ -239,7 +242,6 @@ class ViewController: UIViewController {
         ])
     }
     
-    
     private func setConstraintsForAnimateButton(){
         NSLayoutConstraint.activate([
             animateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -248,13 +250,14 @@ class ViewController: UIViewController {
     }
     
     private func addSubviews(){
-        [linearBall, easeInBall, easeOutBall, easeInEaseOutBall, buttonStackView, resetButton, animateButton].forEach{$0.translatesAutoresizingMaskIntoConstraints = false }
+        [linearPoop, easeInPoop, easeOutPoop, easeInEaseOutPoop, buttonStackView, resetButton, animateButton].forEach{$0.translatesAutoresizingMaskIntoConstraints = false }
         
-        let UIElements = [linearBall, easeInBall, easeOutBall, easeInEaseOutBall,buttonStackView, resetButton, animateButton]
+        let UIElements = [linearPoop, easeInPoop, easeOutPoop, easeInEaseOutPoop,buttonStackView, resetButton, animateButton]
         for UIElement in UIElements {
             self.view.addSubview(UIElement)
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubviews()
