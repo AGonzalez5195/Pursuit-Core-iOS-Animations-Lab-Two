@@ -143,12 +143,14 @@ class ViewController: UIViewController {
     }
     
     @objc func resetButtonPressed(sender: UIButton) {
-        linearBall.center = CGPoint(x: linearBall.center.x, y: linearBall.center.y - 600)
-        easeInBall.center = CGPoint(x: easeInBall.center.x, y: easeInBall.center.y - 600)
-        easeOutBall.center = CGPoint(x: easeOutBall.center.x, y: easeOutBall.center.y - 600)
-        easeInEaseOutBall.center = CGPoint(x: easeInEaseOutBall.center.x, y: easeInEaseOutBall.center.y - 600)
+        linearBall.transform = CGAffineTransform.identity
+        easeInBall.transform = CGAffineTransform.identity
+        easeOutBall.transform = CGAffineTransform.identity
+        easeInEaseOutBall.transform = CGAffineTransform.identity
+    
+        
+//        easeInEaseOutBall.center = CGPoint(x: easeInEaseOutBall.center.x, y: easeInEaseOutBall.center.y - 600)
         //CGAffineTransform doesn't change the actual center? Somehow, when the ball moves, it prints out the same center as when it started. Yet, reverting the change made via subtraction seems to work.
-        view.layoutIfNeeded()
     }
     
     
@@ -246,7 +248,7 @@ class ViewController: UIViewController {
     }
     
     private func addSubviews(){
-        [linearBall, easeInBall, easeOutBall, easeInEaseOutBall, buttonStackView, resetButton, animateButton].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
+        [linearBall, easeInBall, easeOutBall, easeInEaseOutBall, buttonStackView, resetButton, animateButton].forEach{$0.translatesAutoresizingMaskIntoConstraints = false }
         
         let UIElements = [linearBall, easeInBall, easeOutBall, easeInEaseOutBall,buttonStackView, resetButton, animateButton]
         for UIElement in UIElements {
