@@ -108,7 +108,7 @@ class ViewController: UIViewController {
     
     lazy var titleLabel: UILabel = {
            let label = UILabel()
-           label.text = "Poop Animation Speeds"
+           label.text = "Animation Speeds"
            label.textColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
         label.font = UIFont.boldSystemFont(ofSize: 20)
            label.textAlignment = .center
