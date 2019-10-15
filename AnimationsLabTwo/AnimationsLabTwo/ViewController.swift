@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.tag = 0
         button.showsTouchWhenHighlighted = true
-        button.addTarget(self, action: #selector(hideButtonPressed(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showHideButtonPressed(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -49,10 +49,10 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("EaseIn", for: .normal)
         button.setTitleColor(.purple, for: .normal)
-         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.tag = 1
         button.showsTouchWhenHighlighted = true
-        button.addTarget(self, action: #selector(hideButtonPressed(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showHideButtonPressed(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -60,10 +60,10 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("EaseOut", for: .normal)
         button.setTitleColor(.purple, for: .normal)
-         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.tag = 2
         button.showsTouchWhenHighlighted = true
-        button.addTarget(self, action: #selector(hideButtonPressed(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showHideButtonPressed(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.tag = 3
         button.showsTouchWhenHighlighted = true
-        button.addTarget(self, action: #selector(hideButtonPressed(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showHideButtonPressed(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -107,17 +107,17 @@ class ViewController: UIViewController {
     }()
     
     lazy var titleLabel: UILabel = {
-           let label = UILabel()
-           label.text = "Animation Speeds"
-           label.textColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
+        let label = UILabel()
+        label.text = "Animation Speeds"
+        label.textColor = #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
         label.font = UIFont.boldSystemFont(ofSize: 20)
-           label.textAlignment = .center
-           return label
-       }()
+        label.textAlignment = .center
+        return label
+    }()
     
     //MARK: -- objc/button functions
     
-    @objc func hideButtonPressed(sender: UIButton){
+    @objc func showHideButtonPressed(sender: UIButton){
         switch sender.tag {
         case 0:
             if linearPoop.isHidden == true {
@@ -150,10 +150,10 @@ class ViewController: UIViewController {
     }
     
     @objc func animateButtonPressed(sender: UIButton) {
-        animateLinearPoop()
-        animateEaseInPoop()
-        animateEaseOutPoop()
-        animateEaseInEaseOutPoop()
+        animateSomePoop(poop: linearPoop, animationStyle: .curveLinear)
+        animateSomePoop(poop: easeInPoop, animationStyle: .curveEaseIn)
+        animateSomePoop(poop: easeOutPoop, animationStyle: .curveEaseOut)
+        animateSomePoop(poop: easeInEaseOutPoop, animationStyle: .curveEaseInOut)
     }
     
     @objc func resetButtonPressed(sender: UIButton) {
@@ -163,87 +163,36 @@ class ViewController: UIViewController {
         easeInEaseOutPoop.transform = CGAffineTransform.identity
     }
     
-    //        easeInEaseOutBall.center = CGPoint(x: easeInEaseOutBall.center.x, y: easeInEaseOutBall.center.y - 600)
-    //CGAffineTransform doesn't change the actual center? Somehow, when the ball moves, it prints out the same center as when it started. Yet, reverting the change made via subtraction seems to work.
+    //MARK: -- Methods
     
-    
-    
-    //MARK: -- Animation Functions
-    private func animateLinearPoop(){
-        UIView.animate(withDuration: 3.0, delay: 0, options: .curveLinear, animations: {
-            self.linearPoop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
-    
-    
-    private func animateEaseInPoop(){
-        print(easeInPoop.center)
-        UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseIn, animations: {
-            self.easeInPoop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: {(action) in
-                print(self.easeInPoop.center)
-        })
+    private func animateSomePoop(poop: UIImageView, animationStyle: UIView.AnimationOptions){
+        UIView.animate(withDuration: 3.0, delay: 0, options: animationStyle, animations: {
+            poop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
         
-    }
-    
-    private func animateEaseOutPoop(){
-        UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseOut, animations: {
-            self.easeOutPoop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
-    
-    private func animateEaseInEaseOutPoop(){
-        UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseInOut, animations: {
-            self.easeInEaseOutPoop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
-    
-    //MARK: -- Constraint Functions
     private func setConstraints(){
+        setPoopConstraints(poop: linearPoop, animButton: linearButton)
+        setPoopConstraints(poop: easeInPoop, animButton: easeInButton)
+        setPoopConstraints(poop: easeOutPoop, animButton: easeOutButton)
+        setPoopConstraints(poop: easeInEaseOutPoop, animButton: easeInEaseOutButton)
         setConstraintsForButtonStack()
-        setConstraintsForLinearPoop()
-        setConstraintsForEaseInPoop()
-        setConstraintsForEaseOutPoop()
-        setConstraintsForEaseInEaseOutPoop()
         setConstraintsForResetButton()
         setConstraintsForAnimateButton()
         setTitleLabelConstraints()
     }
     
     private func setTitleLabelConstraints(){
-          NSLayoutConstraint.activate([
-              titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-              titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-          ])
-      }
-      
-    
-    private func setConstraintsForLinearPoop(){
         NSLayoutConstraint.activate([
-            linearPoop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            linearPoop.centerXAnchor.constraint(equalTo: linearButton.centerXAnchor),
-            linearPoop.widthAnchor.constraint(equalToConstant: 70),
-            linearPoop.heightAnchor.constraint(equalToConstant: 70),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
-    private func setConstraintsForEaseInPoop(){
+    private func setPoopConstraints(poop: UIImageView, animButton: UIButton) {
         NSLayoutConstraint.activate([
-            easeInPoop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            easeInPoop.centerXAnchor.constraint(equalTo: easeInButton.centerXAnchor),
-            easeInPoop.widthAnchor.constraint(equalToConstant: 70),
-            easeInPoop.heightAnchor.constraint(equalToConstant: 70),
-        ])
-    }
-    
-    private func setConstraintsForEaseOutPoop(){
-        NSLayoutConstraint.activate([
-            easeOutPoop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            easeOutPoop.centerXAnchor.constraint(equalTo: easeOutButton.centerXAnchor),
-            easeOutPoop.widthAnchor.constraint(equalToConstant: 70),
-            easeOutPoop.heightAnchor.constraint(equalToConstant: 70)
-        ])
-    }
-    
-    private func setConstraintsForEaseInEaseOutPoop(){
-        NSLayoutConstraint.activate([
-            easeInEaseOutPoop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            easeInEaseOutPoop.centerXAnchor.constraint(equalTo: easeInEaseOutButton.centerXAnchor),
-            easeInEaseOutPoop.widthAnchor.constraint(equalToConstant: 70),
-            easeInEaseOutPoop.heightAnchor.constraint(equalToConstant: 70)
+            poop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
+            poop.centerXAnchor.constraint(equalTo: animButton.centerXAnchor),
+            poop.widthAnchor.constraint(equalToConstant: 70),
+            poop.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
     
