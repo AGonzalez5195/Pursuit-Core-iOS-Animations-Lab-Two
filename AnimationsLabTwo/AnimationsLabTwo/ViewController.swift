@@ -170,10 +170,10 @@ class ViewController: UIViewController {
             poop.transform = CGAffineTransform(translationX: 0, y: 600) } , completion: nil)}
         
     private func setConstraints(){
-        setPoopConstraints(poop: linearPoop, animButton: linearButton)
-        setPoopConstraints(poop: easeInPoop, animButton: easeInButton)
-        setPoopConstraints(poop: easeOutPoop, animButton: easeOutButton)
-        setPoopConstraints(poop: easeInEaseOutPoop, animButton: easeInEaseOutButton)
+        setPoopConstraints(poop: linearPoop, relativeTo: linearButton)
+        setPoopConstraints(poop: easeInPoop, relativeTo: easeInButton)
+        setPoopConstraints(poop: easeOutPoop, relativeTo: easeOutButton)
+        setPoopConstraints(poop: easeInEaseOutPoop, relativeTo: easeInEaseOutButton)
         setConstraintsForButtonStack()
         setConstraintsForResetButton()
         setConstraintsForAnimateButton()
@@ -187,10 +187,10 @@ class ViewController: UIViewController {
         ])
     }
     
-    private func setPoopConstraints(poop: UIImageView, animButton: UIButton) {
+    private func setPoopConstraints(poop: UIImageView, relativeTo: UIButton) {
         NSLayoutConstraint.activate([
             poop.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 30),
-            poop.centerXAnchor.constraint(equalTo: animButton.centerXAnchor),
+            poop.centerXAnchor.constraint(equalTo: relativeTo.centerXAnchor),
             poop.widthAnchor.constraint(equalToConstant: 70),
             poop.heightAnchor.constraint(equalToConstant: 70)
         ])
